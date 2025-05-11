@@ -6,11 +6,12 @@ option java_multiple_files = true;
 package exchange;
 
 service ExchangeService {
-  rpc GetRate (CurrencyRequest) returns (ExchangeRateResponse);
+  rpc GetRate (ExchangeRateRequest) returns (ExchangeRateResponse);
   rpc GetAllRates (Empty) returns (ExchangeRateListResponse);
+  rpc Convert (ConversionRequest) returns (ConversionResponse);
 }
 
-message CurrencyRequest {
+message ExchangeRateRequest {
   string currencyCode = 1;
 }
 
@@ -18,6 +19,16 @@ message ExchangeRateResponse {
   string currencyCode = 1;
   double rate = 2;
   string timestamp = 3;
+}
+
+message ConversionRequest {
+  string fromCurrency = 1;
+  string toCurrency = 2;
+  double amount = 3;
+}
+
+message ConversionResponse {
+  double convertedAmount = 4;
 }
 
 message ExchangeRateListResponse {
