@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "de.jodegen.exchange.grpc";
+option java_multiple_files = true;
+
+package exchange;
+
+service ExchangeService {
+  rpc GetRate (CurrencyRequest) returns (ExchangeRateResponse);
+  rpc GetAllRates (Empty) returns (ExchangeRateListResponse);
+}
+
+message CurrencyRequest {
+  string currencyCode = 1;
+}
+
+message ExchangeRateResponse {
+  string currencyCode = 1;
+  double rate = 2;
+  string timestamp = 3;
+}
+
+message ExchangeRateListResponse {
+  repeated ExchangeRateResponse rates = 1;
+}
+
+message Empty {}
