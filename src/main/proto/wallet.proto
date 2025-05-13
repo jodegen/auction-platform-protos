@@ -6,10 +6,12 @@ option java_multiple_files = true;
 package wallet;
 
 service WalletService {
-  rpc GetBalance (GetBalanceRequest) returns (GetBalanceResponse);
-  rpc AuctionPurchase (AuctionPurchaseRequest) returns (AuctionPurchaseResponse);
-  rpc AuctionBid (AuctionBidRequest) returns (AuctionBidResponse);
-  rpc AuctionBidCancel (AuctionBidCancelRequest) returns (AuctionBidCancelResponse);
+  rpc GetCurrencyBalance (GetBalanceRequest) returns (GetBalanceResponse);
+  rpc ReserveFundsForBid (ReserveFundsForBidRequest) returns (ReserveFundsForBidResponse);
+  rpc ReleaseReservedFunds (ReleaseReservedFundsRequest) returns (ReleaseReservedFundsResponse);
+  rpc ProcessBuyNowPayment (ProcessBuyNowPaymentRequest) returns (ProcessBuyNowPaymentResponse);
+  rpc PayoutForBuyNow (PayoutForBuyNowRequest) returns (PayoutForBuyNowResponse);
+  rpc PayoutForBid (PayoutForBidRequest) returns (PayoutForBidResponse);
 }
 
 message GetBalanceRequest {
@@ -24,47 +26,57 @@ message GetBalanceResponse {
   double reservedBalance = 4;
 }
 
-message AuctionPurchaseRequest {
+message ProcessBuyNowPaymentRequest {
   int64 userId = 1;
   int64 auctionId = 2;
   double purchasePrice = 3;
   string currencyCode = 4;
 }
 
-message AuctionPurchaseResponse {
-  int64 userId = 1;
-  int64 auctionId = 2;
-  double purchasePrice = 3;
-  string currencyCode = 4;
-  bool success = 5;
+message ProcessBuyNowPaymentResponse {
+  bool success = 1;
 }
 
-message AuctionBidRequest {
+message ReserveFundsForBidRequest {
   int64 userId = 1;
   int64 auctionId = 2;
   double bidAmount = 3;
   string currencyCode = 4;
 }
 
-message AuctionBidResponse {
-  int64 userId = 1;
-  int64 auctionId = 2;
-  double bidAmount = 3;
-  string currencyCode = 4;
-  bool success = 5;
+message ReserveFundsForBidResponse {
+  bool success = 1;
 }
 
-message AuctionBidCancelRequest {
+message ReleaseReservedFundsRequest {
   int64 userId = 1;
   int64 auctionId = 2;
   double bidAmount = 3;
   string currencyCode = 4;
 }
 
-message AuctionBidCancelResponse {
+message ReleaseReservedFundsResponse {
+  bool success = 1;
+}
+
+message PayoutForBuyNowRequest {
   int64 userId = 1;
   int64 auctionId = 2;
-  double bidAmount = 3;
+  double amount = 3;
   string currencyCode = 4;
-  bool success = 5;
+}
+
+message PayoutForBuyNowResponse {
+  bool success = 1;
+}
+
+message PayoutForBidRequest {
+  int64 userId = 1;
+  int64 auctionId = 2;
+  double amount = 3;
+  string currencyCode = 4;
+}
+
+message PayoutForBidResponse {
+  bool success = 1;
 }
