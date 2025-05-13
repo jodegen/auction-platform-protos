@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option java_package = "de.jodegen.wallet.grpc";
+option java_multiple_files = true;
+
+package wallet;
+
+service WalletService {
+  rpc GetBalance (GetBalanceRequest) returns (GetBalanceResponse);
+  rpc AuctionPurchase (AuctionPurchaseRequest) returns (AuctionPurchaseResponse);
+  rpc AuctionBid (AuctionBidRequest) returns (AuctionBidResponse);
+  rpc AuctionBidCancel (AuctionBidCancelRequest) returns (AuctionBidCancelResponse);
+}
+
+message GetBalanceRequest {
+  string userId = 1;
+}
+
+message GetBalanceResponse {
+  string userId = 1;
+  double balance = 2;
+}
+
+message AuctionPurchaseRequest {
+  string userId = 1;
+  string auctionId = 2;
+  double purchasePrice = 3;
+}
+
+message AuctionPurchaseResponse {
+  string userId = 1;
+  string auctionId = 2;
+  double purchasePrice = 3;
+  bool success = 4;
+}
+
+message AuctionBidRequest {
+  string userId = 1;
+  string auctionId = 2;
+  double bidAmount = 3;
+}
+
+message AuctionBidResponse {
+  string userId = 1;
+  string auctionId = 2;
+  double bidAmount = 3;
+  bool success = 4;
+}
+
+message AuctionBidCancelRequest {
+  string userId = 1;
+  string auctionId = 2;
+  double bidAmount = 3;
+}
+
+message AuctionBidCancelResponse {
+  string userId = 1;
+  string auctionId = 2;
+  double bidAmount = 3;
+  bool success = 4;
+}
