@@ -13,30 +13,30 @@ service WalletService {
 }
 
 message GetBalanceRequest {
-  string userId = 1;
+  int32 userId = 1;
 }
 
 message GetBalanceResponse {
-  string userId = 1;
+  int32 userId = 1;
   double balance = 2;
 }
 
 message AuctionPurchaseRequest {
-  string userId = 1;
+  int32 userId = 1;
   string auctionId = 2;
   double purchasePrice = 3;
 }
 
 message AuctionPurchaseResponse {
-  string userId = 1;
-  string auctionId = 2;
+  int32 userId = 1;
+  int32 auctionId = 2;
   double purchasePrice = 3;
   bool success = 4;
 }
 
 message AuctionBidRequest {
-  string userId = 1;
-  string auctionId = 2;
+  int32 userId = 1;
+  int32 auctionId = 2;
   double bidAmount = 3;
 }
 
