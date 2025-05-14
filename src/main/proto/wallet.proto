@@ -10,8 +10,7 @@ service WalletService {
   rpc ReserveFundsForBid (ReserveFundsForBidRequest) returns (ReserveFundsForBidResponse);
   rpc ReleaseReservedFunds (ReleaseReservedFundsRequest) returns (ReleaseReservedFundsResponse);
   rpc ProcessBuyNowPayment (ProcessBuyNowPaymentRequest) returns (ProcessBuyNowPaymentResponse);
-  rpc PayoutForBuyNow (PayoutForBuyNowRequest) returns (PayoutForBuyNowResponse);
-  rpc PayoutForBid (PayoutForBidRequest) returns (PayoutForBidResponse);
+  rpc PayoutOnAuctionSold (PayoutOnAuctionSoldRequest) returns (PayoutOnAuctionSoldResponse);
 }
 
 message GetBalanceRequest {
@@ -59,24 +58,18 @@ message ReleaseReservedFundsResponse {
   bool success = 1;
 }
 
-message PayoutForBuyNowRequest {
+message PayoutOnAuctionSoldRequest {
   int64 userId = 1;
   int64 auctionId = 2;
-  double amount = 3;
-  string currencyCode = 4;
+  string currencyCode = 3;
+  double amount = 4;
+  enum SaleType {
+    BID = 0;
+    BUY_NOW = 1;
+  }
+  SaleType saleType = 5;
 }
 
-message PayoutForBuyNowResponse {
-  bool success = 1;
-}
-
-message PayoutForBidRequest {
-  int64 userId = 1;
-  int64 auctionId = 2;
-  double amount = 3;
-  string currencyCode = 4;
-}
-
-message PayoutForBidResponse {
+message PayoutOnAuctionSoldResponse {
   bool success = 1;
 }
