@@ -22,7 +22,14 @@ message GetBalanceResponse {
   int64 userId = 1;
   string currencyCode = 2;
   double balance = 3;
-  double reservedBalance = 4;
+  repeated ReservedBalance reservedBalances = 4;
+}
+
+message ReservedBalance {
+  int64 reservedBalanceId = 1;
+  int64 auctionId = 2;
+  double amount = 3;
+  string reason = 4;
 }
 
 message ProcessBuyNowPaymentRequest {
